@@ -1,97 +1,96 @@
 <template>
-    <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-    <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-        <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-            <div class="mt-12 flex flex-col items-center">
-                <h1 class="text-2xl xl:text-3xl font-extrabold">
-                    Sign up
-                </h1>
-                <div class="w-full flex-1 mt-8 grid-cols-2">
-                    <div class="grid grid-rows-2 grid-cols-2 gap-1">
-                        <input
-                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 col-span-2"
-                            type="text" placeholder="Nombre Completo" 
-                        />
-                        <input
-                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                            type="text" placeholder="Primer Apellido" 
-                        />
-                        <input
-                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                            type="text" placeholder="Segundo Apellido" 
-                        />
-                        <select id="countries" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
-                            <option selected>Genero</option>
-                            <option value="M">Masculino</option>
-                            <option value="F">Femenino</option>
-                            <option value="NB">No Binario</option>
-                        </select>
-                        <select id="countries" class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5">
-                            <option selected>Tipo de Sangre</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                        </select>
-                        <input
-                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 col-span-2"
-                            type="email" placeholder="Email" 
-                        />
-                        <input
-                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 "
-                            type="password" placeholder="Contraseña" 
-                        />
-                        <input
-                            class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                            type="date" placeholder="Fecha de Nacimiento" 
-                        />
-                  
-                        <label for="" class="font-medium col-span-2 ">Fotografia</label>
-                        <input
-                            class="w-full px-1 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-1 col-span-2"
-                            type="file" placeholder="Fotografia"
-                        />
-                        <a href="/dashboard" class="" >
-                            <button
-                                class="mt-5 tracking-wide font-semibold bg-green-700 text-gray-100 w-full py-3 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2">
-                                <span class="ml-3 ">
-                                    Registrarse
-                                </span>
-                            </button>
-                            
-                        </a>
-                        <a href="/">
-                            <button
-                                class="mt-5 tracking-wide font-semibold bg-red-700 text-gray-100 w-full py-3 rounded-lg hover:bg-red-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none col-span-2">
-                                <span class="ml-3 ">
-                                    Iniciar Sesión
-                                </span>
-                            </button>
-                        </a>
-                        <p class="mt-6 text-xs text-gray-600 text-center col-span-2">
-                            I agree to abide by templatana's
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Terms of Service
-                            </a>
-                            and its
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Privacy Policy
-                            </a>
-                        </p>
-                    </div>
-                </div>
+    <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-4xl dark:text-black">
+        Registro Personas</h1>
+    <hr>
+    <br>
+    <form>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nombre</label>
+                <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+            </div>
+            <div>
+                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Primer Apellido</label>
+                <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required />
+            </div>
+            <div>
+                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Segundo Apellido</label>
+                <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required />
+            </div>  
+            <div>
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Teléfono</label>
+                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required />
+            </div>
+            <div>
+                <label for="xxx" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Género</label>
+                <select id="small" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Selecciona tu género</option>
+                <option value="M">Hombre</option>
+                <option value="F">Mujer</option>
+                <option value="PD">Prefiero no decirlo</option>
+                </select>
+            </div>  
+            <div>
+                <label for="xxx" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tipo de Sangre</label>
+                <select id="small" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Selecciona tu tipo de sangre</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O+">O-</option>
+                </select>
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-black" for="user_avatar">Nose que va jaja</label>
+                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file">
+            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help"></div>
+            </div>
+            <div>
+                <label for="visitors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Fecha de nacimiento</label>
+                <input type="date" name="fechan" id="fechan"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
         </div>
-        <div class="flex-1 bg-purple-200 text-center hidden lg:flex ">
-            <div class="m-12 xl:m-16 w-10/12 bg-contain bg-center bg-no-repeat "
-                style="background-image: url('https://img.freepik.com/fotos-premium/gimnasio-muchas-maquinas-pesas-suelo_173770-1295.jpg');"
-                >
-            </div>
+        <div class="mb-6">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Correo electrónico</label>
+            <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
+        </div> 
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div class="mb-6">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Password</label>
+            <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+        </div> 
+        <div class="mb-6">
+            <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Confirm password</label>
+            <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required />
+        </div> 
         </div>
+        
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registrate</button>
+    
+        
+    </form>
+    
+    <br>
+    <hr>
+    
+    <br>
+    <br>
+    <div class="col">
+        <ListarPersonas/>
     </div>
-</div>
-</template>
+    
+    </template>
+    <script>
+    import ListarPersonas from './ListarPersonas.vue'
+    export default {
+        components: {
+            ListarPersonas
+        }
+    }
+    </script>
+    
