@@ -1,8 +1,7 @@
 from fastapi import FastAPI
-
-# Aquí continúa el código de tu aplicación FastAPI
-
+from routes.user import user
 
 app=FastAPI()
+app.include_router(user)
 
 print ("por que tan coqueta Angelita????")
