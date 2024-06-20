@@ -26,7 +26,7 @@ def get_usuarios():
 
 @user.post('/users')
 
-def save_usuarios(users:model_user):
-        #users.append
-        print (users)
+def save_usuarios(insert_users:model_user):
+        users.append(insert_users)
+        #print (users)
         return "Datos guardados"
