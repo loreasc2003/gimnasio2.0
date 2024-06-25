@@ -31,6 +31,7 @@ def save_usuarios(insert_users:model_user):
         #print (users)
         return "Datos guardados"
 
+# BUSCAR
 @user.get('/users/')
 def get_usuario(id: str):
     for user in users:
@@ -38,6 +39,7 @@ def get_usuario(id: str):
             return user
     return {"error": "Usuario no encontrado"}
 
+#ACTUALIZAR
 @user.put('/users')
 def update_usuario(user_id: str, updated_user: model_user):
     for idx, user in enumerate(users):
@@ -46,6 +48,7 @@ def update_usuario(user_id: str, updated_user: model_user):
             return "Datos actualizados"
     return {"error": "Usuario no encontrado"}
 
+# ELIMINAR
 @user.delete('/users')
 def delete_usuario(id: str):
     for idx, user in enumerate(users):
