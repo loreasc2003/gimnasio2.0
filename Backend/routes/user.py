@@ -10,21 +10,21 @@ class model_user(BaseModel):
         id:str
         usuario:str
         password: str
-        created_at:datetime = datetime.now
+        created_at:datetime = datetime.now()
         estatus:bool=False 
 
-@user.get("/")
+@user.get("/", tags=['Bienvenida'])
 
 def bienvenida():
         return "Bienvenido al sistema de APIs"
 
-@user.get("/users")
+@user.get("/users", tags=['Usuarios'])
 
 def get_usuarios():
         return users
 
 
-@user.post('/users')
+@user.post('/users', tags=['Usuarios'])
 
 def save_usuarios(insert_users:model_user):
         users.append(insert_users)
@@ -32,16 +32,16 @@ def save_usuarios(insert_users:model_user):
         return "Datos guardados"
 
 # BUSCAR
-@user.get('/users/')
-def get_usuario(id: str):
+@user.post('/users/', tags=['Usuarios'])
+def post_usuario(id: str):
     for user in users:
         if user.id == id:
             return user
     return {"error": "Usuario no encontrado"}
 
 #ACTUALIZAR
-@user.put('/users')
-def update_usuario(user_id: str, updated_user: model_user):
+@user.put('/users', tags=['Usuarios'])
+def update_usuario(id: str, updated_user: model_user):
     for idx, user in enumerate(users):
         if user.id == id:
             users[idx] = updated_user
@@ -49,7 +49,7 @@ def update_usuario(user_id: str, updated_user: model_user):
     return {"error": "Usuario no encontrado"}
 
 # ELIMINAR
-@user.delete('/users')
+@user.delete('/users', tags=['Usuarios'])
 def delete_usuario(id: str):
     for idx, user in enumerate(users):
         if user.id == id:
