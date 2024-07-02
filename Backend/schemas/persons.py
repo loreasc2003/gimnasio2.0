@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from cryptography.fernet import Fernet
-import cruds.persons, config.db, schemas.persons, models.persons
+import cruds.crud, config.db, schemas.users, models.users
 from typing import List
 
 key=Fernet.generate_key()
