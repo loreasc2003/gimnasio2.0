@@ -1,62 +1,52 @@
-from fastapi import APIRouter,Depends
-import schemas, models
-from cruds import crud
+from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
-from config.db import SessionLocal, engine
+from cryptography.fernet import Fernet
+import cruds.crud, config.db, schemas.users, models.users
+from typing import List
 
-import schemas
+key=Fernet.generate_key()
+f = Fernet(key)
 
 user = APIRouter()
 
+models.users.Base.metadata.create_all(bind=config.db.engine)
+
 def get_db():
-    db = SessionLocal()
+    db = config.db.SessionLocal()
     try:
         yield db
     finally:
         db.close()
 
+@user.get("/users/", response_model=List[schemas.users.User], tags=["Usuarios"])
+def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    db_users= cruds.crud.get_users(db=db, skip=skip, limit=limit)
+    return db_users
 
-@user.get("/", tags=['Bienvenida'])
+@user.post("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
+def read_user(id: int, db: Session = Depends(get_db)):
+    db_user= cruds.crud.get_user(db=db, id=id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_user
 
-def bienvenida():
-        return "Bienvenido al sistema de APIs"
+@user.post("/users/", response_model=schemas.users.User, tags=["Usuarios"])
+def create_user(user: schemas.users.UserCreate, db: Session = Depends(get_db)):
+    db_user = cruds.crud.get_user_by_usuario(db, usuario=user.usuario)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Usuario existente intenta nuevamente")
+    return cruds.crud.create_user(db=db, user=user)
 
-@user.get("/users",response_model=list[schemas.users], tags=['Usuarios'])
+@user.put("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
+def update_user(id: int, user: schemas.users.UserUpdate, db: Session = Depends(get_db)):
+    db_user = cruds.crud.update_user(db=db, id=id, user=user)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="Usuario no existe, no actualizado")
+    return db_user
 
-def get_usuarios(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-        users = crud.get_users(db, skip=skip, limit=limit)
-        return users
-
-
-# @user.post('/users', tags=['Usuarios'])
-
-# def save_usuarios(insert_users:model_user):
-#         users.append(insert_users)
-#         #print (users)
-#         return "Datos guardados"
-
-# # BUSCAR
-# @user.post('/users/', tags=['Usuarios'])
-# def post_usuario(id: str):
-#     for user in users:
-#         if user.id == id:
-#             return user
-#     return {"error": "Usuario no encontrado"}
-
-# #ACTUALIZAR
-# @user.put('/users', tags=['Usuarios'])
-# def update_usuario(id: str, updated_user: model_user):
-#     for idx, user in enumerate(users):
-#         if user.id == id:
-#             users[idx] = updated_user
-#             return "Datos actualizados"
-#     return {"error": "Usuario no encontrado"}
-
-# # ELIMINAR
-# @user.delete('/users', tags=['Usuarios'])
-# def delete_usuario(id: str):
-#     for idx, user in enumerate(users):
-#         if user.id == id:
-#             del users[idx]
-#             return "Usuario eliminado"
-#     return {"error": "Usuario no encontrado"}
+@user.delete("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
+def delete_user(id: int, db: Session = Depends(get_db)):
+    db_user = cruds.crud.delete_user(db=db, id=id)
+    if db_user is None:
+        raise HTTPException(status_code=404, detail="Usuario no existe, no se pudo eliminar")
+    return db_user
