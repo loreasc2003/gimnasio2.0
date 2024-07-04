@@ -7,9 +7,9 @@ from typing import List
 key=Fernet.generate_key()
 f = Fernet(key)
 
-user = APIRouter()
+person = APIRouter()
 
-models.users.Base.metadata.create_all(bind=config.db.engine)
+models.persons.Base.metadata.create_all(bind=config.db.engine)
 
 def get_db():
     db = config.db.SessionLocal()
@@ -18,35 +18,35 @@ def get_db():
     finally:
         db.close()
 
-@user.get("/users/", response_model=List[schemas.users.User], tags=["Usuarios"])
-def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    db_users= cruds.crud.get_users(db=db, skip=skip, limit=limit)
-    return db_users
+@person.get("/persons/", response_model=List[schemas.persons.Person], tags=["Personas"])
+def read_persons(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    db_persons= cruds.persons.get_person(db=db, skip=skip, limit=limit)
+    return db_persons
 
-@user.post("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
-def read_user(id: int, db: Session = Depends(get_db)):
-    db_user= cruds.crud.get_user(db=db, id=id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
+@person.post("/persons/{id}", response_model=schemas.persons.Person, tags=["Personas"])
+def read_person(id: int, db: Session = Depends(get_db)):
+    db_person= cruds.persons.get_person(db=db, id=id)
+    if db_person is None:
+        raise HTTPException(status_code=404, detail="Person not found")
+    return db_person
 
-@user.post("/users/", response_model=schemas.users.User, tags=["Usuarios"])
-def create_user(user: schemas.users.UserCreate, db: Session = Depends(get_db)):
-    db_user = cruds.crud.get_user_by_usuario(db, usuario=user.usuario)
-    if db_user:
+@person.post("/persons/", response_model=schemas.persons.Person, tags=["Personas"])
+def create_person(person: schemas.persons.PersonCreate, db: Session = Depends(get_db)):
+    db_person = cruds.persons.get_person_by_persona(db, nombre=person.nombre)
+    if db_person:
         raise HTTPException(status_code=400, detail="Usuario existente intenta nuevamente")
-    return cruds.crud.create_user(db=db, user=user)
+    return cruds.persons.create_person(db=db, person=person)
 
-@user.put("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
-def update_user(id: int, user: schemas.users.UserUpdate, db: Session = Depends(get_db)):
-    db_user = cruds.crud.update_user(db=db, id=id, user=user)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuario no existe, no actualizado")
-    return db_user
+@person.put("/person/{id}", response_model=schemas.persons.Person, tags=["Personas"])
+def update_person(id: int, person: schemas.persons.PersonUpdate, db: Session = Depends(get_db)):
+    db_person = cruds.persons.update_person(db=db, id=id, person=person)
+    if db_person is None:
+        raise HTTPException(status_code=404, detail="Persona no existe, no actualizado")
+    return db_person
 
-@user.delete("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
-def delete_user(id: int, db: Session = Depends(get_db)):
-    db_user = cruds.crud.delete_user(db=db, id=id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuario no existe, no se pudo eliminar")
-    return db_user
+@person.delete("/person/{id}", response_model=schemas.persons.Person, tags=["Personas"])
+def delete_person(id: int, db: Session = Depends(get_db)):
+    db_person = cruds.persons.delete_person(db=db, id=id)
+    if db_person is None:
+        raise HTTPException(status_code=404, detail="Persona no existe, no se pudo eliminar")
+    return db_person

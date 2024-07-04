@@ -1,52 +1,29 @@
-from fastapi import APIRouter, HTTPException, Depends
-from sqlalchemy.orm import Session
-from cryptography.fernet import Fernet
-import cruds.crud, config.db, schemas.users, models.users
-from typing import List
+from typing import List, Union
+from pydantic import BaseModel
+from datetime import datetime
 
-key=Fernet.generate_key()
-f = Fernet(key)
+class PersonBase(BaseModel):
+    nombre: str
+    primer_apellido: str
+    segundo_apellido: str
+    direccion: str
+    telefono: str
+    correo: str
+    created_at: datetime
+    estatus: bool
 
-user = APIRouter()
+class PersonCreate(PersonBase):
+    pass
 
-models.users.Base.metadata.create_all(bind=config.db.engine)
+class PersonUpdate(PersonBase):
+    pass
 
-def get_db():
-    db = config.db.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+class Person(PersonBase):
+    id: int
+    #owner_id: int clave foranea
+    class Config:
+        orm_mode = True
 
-@user.get("/users/", response_model=List[schemas.users.User], tags=["Usuarios"])
-def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    db_users= cruds.crud.get_users(db=db, skip=skip, limit=limit)
-    return db_users
 
-@user.post("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
-def read_user(id: int, db: Session = Depends(get_db)):
-    db_user= cruds.crud.get_user(db=db, id=id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
-
-@user.post("/users/", response_model=schemas.users.User, tags=["Usuarios"])
-def create_user(user: schemas.users.UserCreate, db: Session = Depends(get_db)):
-    db_user = cruds.crud.get_user_by_usuario(db, usuario=user.usuario)
-    if db_user:
-        raise HTTPException(status_code=400, detail="Usuario existente intenta nuevamente")
-    return cruds.crud.create_user(db=db, user=user)
-
-@user.put("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
-def update_user(id: int, user: schemas.users.UserUpdate, db: Session = Depends(get_db)):
-    db_user = cruds.crud.update_user(db=db, id=id, user=user)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuario no existe, no actualizado")
-    return db_user
-
-@user.delete("/user/{id}", response_model=schemas.users.User, tags=["Usuarios"])
-def delete_user(id: int, db: Session = Depends(get_db)):
-    db_user = cruds.crud.delete_user(db=db, id=id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="Usuario no existe, no se pudo eliminar")
-    return db_user
+        
+       
